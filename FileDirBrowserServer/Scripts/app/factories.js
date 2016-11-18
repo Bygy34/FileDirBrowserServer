@@ -1,0 +1,29 @@
+﻿/**
+ * Created by Mikhail on 01.09.2015.
+ */
+angular.module('browserApp')
+    .factory('DirectoriesService', ['$http', function ($http) {
+
+        var fileExplorerUrl = 'http://localhost:59835/api/Default/Index/';
+        var countOfFilesUrl = 'http://localhost:59835/api/Default/GetDirectoryFilesSizeStatistic/';
+        var DirectoriesService = {};
+        DirectoriesService.getExplorerModel = function (path) {
+            if(typeof path === 'undefined'){
+                path = '';
+            } else {
+                path = '?realpath=' + path;
+            }
+            return $http.get(fileExplorerUrl + path, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }});
+        };
+
+        DirectoriesService.getCountOfFiles = function (path) {
+            if(typeof path === 'undefined'){
+                path = '';
+            } else {
+                path = '?path=' + path;
+            }
+            return $http.get(countOfFilesUrl + path, {headers: { 'Content-Type': 'application/x-www-form-urlencoded' }});
+        };
+
+        return DirectoriesService;
+}]);

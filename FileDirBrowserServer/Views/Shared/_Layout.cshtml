@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="browserApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Directory/file Browser</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Style.css" rel="stylesheet" />
+</head>
+@RenderBody();
+<body ng-controller="defaultCtrl">
+    <table class="table table-bordered" ng-show="folderIsRoot(currentFolder)">
+        <tr>
+            <th>Less 10Mb</th>
+            <th>10Mb-50Mb</th>
+            <th>More 50Mb</th>
+        </tr>
+        <tr>
+            <td>{{sizes[0]}}</td>
+            <td>{{sizes[1]}}</td>
+            <td>{{sizes[2]}}</td>
+        </tr>
+    </table>
+    <span ng-show="folderIsRoot(currentFolder)"><strong>Current path: </strong>{{currentFolder}}</span>
+    <div ng-show="folderIsRoot(currentFolder)">
+        <a href ng-click="moveBack(currentFolder)">..</a>
+    </div>
+    <div ng-repeat="item in DirModelList">
+        <a href ng-click="getCurrentFolder((currentFolder == '' ? currentFolder : currentFolder + '\\') + item.DirName)">{{item.DirName}}</a>
+    </div>
+    <div ng-repeat="item in FileModelList">
+        <span>{{item.Name}}</span>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="~/Scripts/app/controllers.js"></script>
+    <script src="~/Scripts/app/factories.js"></script>
+</body>
+</html>
